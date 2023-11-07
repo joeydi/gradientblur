@@ -17,6 +17,21 @@ function App() {
                 const backgroundPosition = `calc(50% - ${this.x}px) calc(50% - ${this.y}px)`;
                 backgroundRef.current.style.backgroundPosition = backgroundPosition;
             },
+            onDragEnd: function () {
+                gsap.to(cardRef.current, {
+                    y: 0,
+                    x: 0,
+                    duration: 1,
+                    ease: "expo.inOut",
+                    onUpdate: function () {
+                        const target = this.targets()[0];
+                        const x = gsap.getProperty(target, "x");
+                        const y = gsap.getProperty(target, "y");
+                        const backgroundPosition = `calc(50% - ${x}px) calc(50% - ${y}px)`;
+                        backgroundRef.current.style.backgroundPosition = backgroundPosition;
+                    },
+                });
+            },
         });
     }, []);
 
